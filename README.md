@@ -19,11 +19,52 @@
 cd server && go run main.go     # :8080
 cd web && npm install && npm run dev  # :5173
 
-# Docker部署
-docker-compose up -d
+# Docker 部署
+docker run -d -p 8080:8080 -v $(pwd)/data:/app/data yu1998/go-web-changes:latest
 ```
 
 访问 `http://localhost:8080`
+
+## Docker 镜像构建与推送
+
+### 多平台构建（linux/amd64 + linux/arm64）
+
+```bash
+# 1. 创建 buildx 构建器
+docker buildx create --name multiarch --use
+
+# 2. 构建并推送多平台镜像到 Docker Hub
+docker buildx build \
+  --platform linux/amd64,linux/arm64 \
+  -t yu1998/go-web-changes:latest \
+  -f server/Dockerfile \
+  --push .
+
+# 3. 单独构建本地平台（不推送）
+docker build -t yu1998/go-web-changes:latest -f server/Dockerfile .
+```
+
+### 手动构建（网络受限时）
+
+```bash
+# 后端
+cd server && CGO_ENABLED=1 go build -o monitor-server .
+
+# 前端
+cd web && npm install && npm run build
+
+# 打包
+tar czf go-web-changes.tar.gz -C server monitor-server config/config.yaml -C ../web dist
+```
+
+### 镜像说明
+
+| 标签 | 说明 |
+|------|------|
+| `yu1998/go-web-changes:latest` | 最新版本（多架构） |
+| 基础镜像 | debian:bookworm-slim + Chromium |
+| 端口 | 8080 |
+| 数据卷 | /app/data (SQLite), /app/logs |
 
 ## 核心功能
 
