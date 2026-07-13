@@ -147,7 +147,7 @@ onMounted(() => {
             <pre style="padding: 12px; margin: 0; font-size: 12px; line-height: 1.6; overflow: auto; max-height: 300px; white-space: pre-wrap; word-break: break-all; background: #fafafa">{{ detail.scan_result }}</pre>
           </div>
 
-          <DiffViewer :old-text="detail.prev_scan_result" :new-text="detail.scan_result" />
+          <DiffViewer :old-text="detail.prev_scan_result || ''" :new-text="detail.scan_result || ''" />
         </template>
       </div>
     </el-drawer>

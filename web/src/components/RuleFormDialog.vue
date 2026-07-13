@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue'
 import type { ScanRule, StepResult } from '../types'
-import { RuleModeMap } from '../types'
 
 const props = defineProps<{
   visible: boolean; rule: ScanRule
