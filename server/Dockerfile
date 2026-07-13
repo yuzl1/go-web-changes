@@ -6,14 +6,13 @@ RUN npm ci 2>/dev/null || npm install
 COPY web/ ./
 RUN npm run build
 
-# 阶段2: 后端构建
+# 阶段2: 后端构建 (纯Go, 无需CGO)
 FROM golang:1.22-alpine AS server-builder
-RUN apk add --no-cache gcc musl-dev
 WORKDIR /server
 COPY server/go.mod server/go.sum ./
 RUN go mod download
 COPY server/ ./
-RUN CGO_ENABLED=1 go build -o monitor-server .
+RUN CGO_ENABLED=0 go build -o monitor-server .
 
 # 阶段3: 运行镜像
 FROM debian:bookworm-slim
