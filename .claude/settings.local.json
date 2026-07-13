@@ -81,7 +81,8 @@
       "Bash(curl -s http://docker-registry.yu1998.com:5000/v2/_catalog)",
       "Bash(ping -c 1 -t 3 registry-1.docker.io)",
       "Bash(docker run *)",
-      "Bash(git add *)"
+      "Bash(git add *)",
+      "Bash(git remote *)"
     ]
   }
 }

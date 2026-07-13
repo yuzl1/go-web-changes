@@ -43,8 +43,8 @@ docker run -d -p 8080:8080 -v $(pwd)/data:/app/data yu1998/go-web-changes:latest
 2. 推送代码即自动构建：
 
    ```bash
-   git push origin master        # 构建 latest
-   git tag v1.0.0 && git push --tags  # 构建版本标签
+   git push origin master              # → latest + master + sha-xxxxx
+   git tag v1.0.0 && git push --tags    # → v1.0.0
    ```
 
 **工作流文件** `.github/workflows/docker-build.yml`：
