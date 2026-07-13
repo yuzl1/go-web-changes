@@ -1,0 +1,17 @@
+server:
+  port: 8080
+  mode: debug  # debug / release
+
+database:
+  path: ./data/monitor.db
+
+crypto:
+  secret_key: ""  # AES加密密钥，留空使用默认密钥
+
+chromium:
+  path: ""         # Chrome 浏览器路径，留空自动查找
+  max_concurrent: 3
+
+log:
+  level: debug     # debug / info / warn / error
+  path: ./logs/app.log

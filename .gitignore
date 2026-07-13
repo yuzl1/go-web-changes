@@ -1,0 +1,8 @@
+server/monitor-server
+server/data/
+server/logs/
+server/web/dist/
+web/node_modules/
+web/dist/
+.DS_Store
+*.db
