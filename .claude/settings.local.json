@@ -82,7 +82,9 @@
       "Bash(ping -c 1 -t 3 registry-1.docker.io)",
       "Bash(docker run *)",
       "Bash(git add *)",
-      "Bash(git remote *)"
+      "Bash(git remote *)",
+      "Bash(curl -v http://localhost:8080/)",
+      "Bash(curl -s http://localhost:8080/tasks)"
     ]
   }
 }

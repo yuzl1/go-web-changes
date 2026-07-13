@@ -3,7 +3,9 @@ package main
 import (
 	"fmt"
 	"log"
+	"net/http"
 	"os"
+	"path/filepath"
 	"strings"
 
 	"monitor-server/config"
@@ -75,14 +77,29 @@ func main() {
 	api.POST("/config/smtp/test", configH.TestSMTP)
 	api.POST("/cache", scanH.CachePage)
 
-	// SPA fallback
+	// 前端静态文件 + SPA fallback
+	distPath := "web/dist"
+	if _, err := os.Stat(distPath); os.IsNotExist(err) {
+		// Docker 容器内尝试绝对路径
+		if _, err := os.Stat("/app/web/dist"); err == nil {
+			distPath = "/app/web/dist"
+		}
+	}
+	r.Static("/assets", filepath.Join(distPath, "assets"))
+	r.StaticFile("/favicon.svg", filepath.Join(distPath, "favicon.svg"))
 	r.NoRoute(func(c *gin.Context) {
 		path := c.Request.URL.Path
 		if strings.HasPrefix(path, "/api") {
 			c.JSON(404, gin.H{"code": 404, "message": "not found"})
 			return
 		}
-		c.File("web/dist/index.html")
+		// 尝试直接返回文件，失败则返回 index.html
+		fullPath := filepath.Join(distPath, path)
+		if _, err := os.Stat(fullPath); err == nil {
+			http.ServeFile(c.Writer, c.Request, fullPath)
+			return
+		}
+		c.File(filepath.Join(distPath, "index.html"))
 	})
 
 	log.Printf("[Init] 服务启动于 :%d", cfg.Server.Port)
