@@ -68,7 +68,19 @@
       "Bash(curl -s -X POST http://localhost:8080/api/rules/test -H 'Content-Type: application/json' -d '{\"target_url\":\"https://example.com\",\"rules\":[{\"step_order\":1,\"rule_type\":1,\"rule_content\":\"h1\",\"rule_mode\":1}]}')",
       "Bash(python3 -c \"import sys,json; print\\(json.load\\(sys.stdin\\)['code']\\)\")",
       "Bash(curl -s -X POST http://localhost:8080/api/rules/inspect -H 'Content-Type: application/json' -d '{\"target_url\":\"https://example.com\"}')",
-      "Bash(python3 *)"
+      "Bash(python3 *)",
+      "Bash(git commit *)",
+      "Bash(git push *)",
+      "Bash(docker build *)",
+      "Bash(docker pull *)",
+      "Bash(docker info *)",
+      "Read(//Users/yuzl/.docker/**)",
+      "Read(//etc/docker/**)",
+      "Bash(docker system *)",
+      "Bash(curl -s http://163.47.43.14:5000/v2/_catalog)",
+      "Bash(curl -s http://docker-registry.yu1998.com:5000/v2/_catalog)",
+      "Bash(ping -c 1 -t 3 registry-1.docker.io)",
+      "Bash(docker run *)"
     ]
   }
 }

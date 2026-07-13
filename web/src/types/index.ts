@@ -18,6 +18,16 @@ export interface StepResult {
   step_order: number; status: 'success'|'error'|'skipped'; elapsed_ms: number
   output: string; count: number; error?: string
 }
+export interface RecordDetail {
+  id: number; task_id: number; target_url: string; scan_time: string
+  scan_result: string; is_changed: number; error_msg: string | null
+  prev_scan_result?: string
+}
+export interface SmtpConfig {
+  smtp_host: string; smtp_port: number; smtp_encryption: string
+  smtp_sender_email: string; smtp_sender_name: string; smtp_username: string
+  smtp_password: string; smtp_receiver_emails: string
+}
 export interface RuleTestResult { steps: StepResult[]; final_result: string; message?: string }
 export interface ApiResponse<T=any> { code: number; message: string; data: T }
 export interface PageData<T=any> { list: T[]; total: number; page: number; page_size: number }
