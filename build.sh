@@ -3,8 +3,8 @@ set -e
 
 echo "=== 1. 构建前端 ==="
 cd web
-npm install --silent
-npm run build
+pnpm install --silentp
+pnpm run build
 cd ..
 
 echo "=== 2. 拷贝前端产物 ==="
